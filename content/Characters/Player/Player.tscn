@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqwxq2ep08uq"]
+
+[ext_resource type="Script" path="res://content/Characters/Player/player.gd" id="1_d5rx4"]
+[ext_resource type="Texture2D" uid="uid://d3yhir3jxvdx4" path="res://content/Assets/Player/player_01.png" id="1_owhoy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_27ugp"]
+radius = 8.0
+height = 128.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3jqd5"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_d5rx4")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3.8147e-06, -4.5269e-09)
+scale = Vector2(0.0764179, 0.101266)
+texture = ExtResource("1_owhoy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_27ugp")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+scale = Vector2(7, 1.5)
+shape = SubResource("RectangleShape2D_3jqd5")
+
+[connection signal="pressed" from="TouchScreenButton" to="." method="_on_touch_screen_button_pressed"]
+[connection signal="released" from="TouchScreenButton" to="." method="_on_touch_screen_button_released"]

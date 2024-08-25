@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://d30frdgfky0se"]
+
+[ext_resource type="Script" path="res://content/map/level_01.gd" id="1_3esgi"]
+[ext_resource type="PackedScene" uid="uid://bqwxq2ep08uq" path="res://content/Character/Player/Player.tscn" id="1_ns17c"]
+[ext_resource type="PackedScene" uid="uid://5w1xc3yyh178" path="res://content/Character/ball.tscn" id="3_3d14k"]
+[ext_resource type="PackedScene" uid="uid://cjg3c0dl0tbdj" path="res://content/Character/Enemy/enemy_1.tscn" id="3_dofww"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cshfn"]
+size = Vector2(985, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1485t"]
+size = Vector2(41, 1324)
+
+[node name="Level01" type="Node2D"]
+script = ExtResource("1_3esgi")
+metadata/_edit_vertical_guides_ = [480.0]
+metadata/_edit_horizontal_guides_ = [640.0]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 960.0
+offset_bottom = 1280.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.141176, 0.152941, 0.164706, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Top" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]
+position = Vector2(480, -8)
+shape = SubResource("RectangleShape2D_cshfn")
+
+[node name="Bottom" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
+position = Vector2(475.5, 1296)
+shape = SubResource("RectangleShape2D_cshfn")
+
+[node name="wall" type="StaticBody2D" parent="."]
+position = Vector2(-8, 8)
+
+[node name="left" type="CollisionShape2D" parent="wall"]
+position = Vector2(-11.5, 636)
+shape = SubResource("RectangleShape2D_1485t")
+
+[node name="right" type="CollisionShape2D" parent="wall"]
+position = Vector2(992, 640)
+shape = SubResource("RectangleShape2D_1485t")
+
+[node name="Player" parent="." instance=ExtResource("1_ns17c")]
+position = Vector2(480, 1248)
+speed = null
+
+[node name="Enemy" parent="." instance=ExtResource("3_dofww")]
+speed = 500
+
+[node name="Ball" parent="." instance=ExtResource("3_3d14k")]
+position = Vector2(480, 640)
+
+[node name="BallTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]
